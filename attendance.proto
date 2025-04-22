@@ -1,0 +1,30 @@
+/* 06.04.2025 - 20.04.2025
+Lecturer: Catriona Nic Lughadha
+Student: Jefferson Ferreira
+ID: 21223467
+Attendance Proto File
+*/
+
+syntax = "proto3";
+package education;
+
+service Attendance {
+  // Simple RPC: Checking-in astudent
+  rpc CheckIn (StudentRequest) returns (Confirmation);
+  // Bi-direcional Streaming RPC: Live check-in
+  rpc LiveCheckIn (stream StudentRequest) returns (stream AttendanceStatus);
+}
+
+message StudentRequest {
+  string student_id = 1; // Student ID
+  string timestamp = 2; // Check-in time ( e.g. "2025-04-06T09:00:002" )
+}
+
+message Confirmation { // Typo fixed ( Confirmation -> Confirmation )
+  bool success = 1; // Success flag
+}
+
+message AttendanceStatus {
+  string student_id = 1; // Student ID
+  string status = 2; // Status - "Present" or "Absent"
+}

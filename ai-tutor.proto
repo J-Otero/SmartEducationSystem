@@ -1,0 +1,35 @@
+/* 06.04.2025 - 20.04.2025
+Lecturer: Catriona Nic Lughadha
+Student: Jefferson Ferreira
+ID: 21223467
+AI Tutor Proto File
+*/
+
+syntax = "proto3";
+package education;
+
+service AITutor {
+  // Simple RPC: Ask a question
+  rpc AskQuestion (QuestionRequest) returns (AnswerResponse);
+  // Server Streaming RPC: Generate Quiz
+  rpc GenerateQuiz (TopicRequest) returns (stream QuizQuestion);
+}
+
+message QuestionRequest {
+  string student_id = 1; // Student identifier
+  string question_text = 2; // Question - text format
+}
+
+message AnswerResponse {
+  string answer = 1; // Answer - text format
+  bool is_confident = 2; // Confidence flag (true/false)
+}
+
+message TopicRequest {
+  string course_id = 1; // Course identifier
+}
+
+message QuizQuestion {
+  string question = 1; // Quiz question - text format
+  repeated string options = 2; // List of options for answer
+}

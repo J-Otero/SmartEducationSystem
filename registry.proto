@@ -1,0 +1,32 @@
+/* 06.04.2025 - 20.04.2025
+Lecturer: Catriona Nic Lughadha
+Student: Jefferson Ferreira
+ID: 21223467
+Registry Service Proto File
+*/
+
+syntax = "proto3";
+package education;
+
+service ServiceRegistry {
+  // Register a service (called by services on startup)
+  rpc RegisterService(ServiceInfo) returns (Confirmation);
+  // Discover a service (called by clients/GUI)
+  rpc DiscoverService(ServiceName) returns (ServiceInfo);
+}
+
+// Service information (name + URL)
+message ServiceInfo {
+  string serviceName = 1;  // e.g., "AITutor"
+  string serviceUrl = 2;   // e.g., "localhost:50051"
+}
+
+// Request to discover a service by name
+message ServiceName {
+  string serviceName = 1;  // e.g., "AITutor"
+}
+
+// Confirmation response
+message Confirmation {
+  bool success = 1;
+}

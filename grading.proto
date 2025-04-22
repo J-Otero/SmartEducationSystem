@@ -1,0 +1,35 @@
+/* 06.04.2025 - 20.04.2025
+Lecturer: Catriona Nic Lughadha
+Student: Jefferson Ferreira
+ID: 21223467
+Grading Proto File
+*/
+
+syntax = "proto3";
+package education;
+
+service Grading {
+  // Simple RPC: Submit an assignment
+  rpc SubmitAssignment (Assignment) returns (Grade);
+  // Server Streaming RPC: Generate Quiz
+  rpc UploadAnswers (stream Answer) returns (Confirmation);
+}
+
+message Assignment {
+  string student_id = 1; // Student ID (typo fixed)
+  bytes file = 2; // PDF or text file (as bytes)
+}
+
+message Grade {
+  float score = 1; // Assignment score (0-100)
+  string feedback = 2; // Feedback - free text format
+}
+
+message Answer {
+  string question_id = 1; // Question identifier
+  string answer = 2; // Student's answer
+}
+
+message Confirmation {
+  bool success = 1; // Success flag (true/false)
+}
